@@ -1,4 +1,6 @@
-
+import { Routes,Route } from "react-router"
+import HomePage from "./pages/HomePage"
+import MainLayout from "./layout/MainLayout"
 
 function App() {
 
@@ -6,8 +8,12 @@ function App() {
   return (
     <>
       
-      <h1>Vite + React</h1>
-     
+      <MainLayout>
+        <Routes>
+          <Route path='/' element={<HomePage></HomePage>} />
+        </Routes>
+      </MainLayout>
+
     </>
   )
 }
