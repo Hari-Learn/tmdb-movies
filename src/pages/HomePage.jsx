@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import { useGetMoviesQuery } from "../api/tmdbAPI";
 import MovieCard from "../comp/MovieCard";
 import Skeleton from "../comp/Skeleton";
+import SearchBox from "../comp/SearchBox";
+import GenreFilter from "../comp/GenreFilter";
 
 const HomePage = () => {
     const [page, setPage] = useState(1)
-    const { data,isLoading,isFetching,refetch } = useGetMoviesQuery({ page: page })
+    const [searchQuery,setSearchQuery] = useState("")
+    const { data,isLoading,isFetching,refetch } = useGetMoviesQuery({ page: page,query:searchQuery })
     
+
+    const updateSearchQuery = (value) => {
+        setSearchQuery(value)
+    }
+
     const movies = data?.results || data?.data?.results || [];
     console.log("RTK data:", data);
     console.log("results:", data?.results);
@@ -14,6 +22,11 @@ const HomePage = () => {
     const totalPages = data?.total_pages || 1;
     return (
         <>
+            <div>
+                <div>
+                    <SearchBox searchQuery={searchQuery} updateSearchQuery={updateSearchQuery}></SearchBox>
+                    <GenreFilter></GenreFilter>
+                </div>
             {isLoading ? (
                 <Skeleton/>)
                 :(
@@ -41,7 +54,7 @@ const HomePage = () => {
                         Next</button>
                 </div>
             )}
-
+        </div>
         </>
     )
 }

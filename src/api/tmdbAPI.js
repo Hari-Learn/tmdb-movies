@@ -10,8 +10,11 @@ export const tmdbApi = createApi({
     }),
     endpoints:(builder) => ({
         getMovies: builder.query({
-            query:({ page = 1 })=>{
-                return `discover/movie?page=${page}&api_key=${tmdbApiKey}`
+            query:({ page = 1,query='' })=>{
+                const url = query 
+                ? `search/movie?query=${query}&page=${page}`
+                : `discover/movie?page=${page}`
+                return `${url}&api_key=${tmdbApiKey}`
             }
         })
     })
