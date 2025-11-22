@@ -17,6 +17,11 @@ export const tmdbApi = createApi({
                 return `${url}&api_key=${tmdbApiKey}`
             }
         })
+    }),
+    getGenures :(builder) => ({
+        query : ()=>{
+            
+        }
     })
 })
 
